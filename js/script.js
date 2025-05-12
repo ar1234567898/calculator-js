@@ -18,6 +18,7 @@ const buttonDecimal = document.getElementById("comma");
 const buttonBackspace = document.getElementById("backspace");
 const buttonBracket = document.getElementById("brackets");
 const display = document.getElementById("display");
+buttonPercent = document.getElementById("percent");
 
 let operator = null;
 let count = 0;
@@ -37,21 +38,6 @@ const buttons = [
 
 let numbers = [];
 
-function action(action) {
-  const display = document.getElementById("display");
-  const currentValue = parseFloat(display.innerText);
-  if (!isNaN(currentValue)) {
-    numbers.push(display.innerText);
-    display.innerText += action;
-    numbers.push(action);
-    operator = action;
-  }
-}
-
-function isInteger(value) {
-  return value == parseInt(value, 10);
-}
-
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     const display = document.getElementById("display");
@@ -60,19 +46,32 @@ buttons.forEach((button) => {
     // If the display shows "0", replace it with the button's value
     if (currentValue === "0") {
       display.innerText = button.innerText;
-    } else if (display.innerText == operator) {
-      // If the display shows an operator, replace it with the button's value
-      display.innerText = button.innerText;
     } else {
       display.innerText += button.innerText;
     }
 
-    // Limit the display length to 8 characters
+    // Limit the display length to 12 characters (including math symbols)
     if (display.innerText.length > 12) {
       display.innerText = display.innerText.slice(0, 12);
     }
   });
 });
+
+function action(action) {
+  const display = document.getElementById("display");
+  const currentValue = display.innerText;
+
+  // Prevent two operations in a row
+  const lastChar = currentValue[currentValue.length - 1];
+  if (["+", "-", "*", "/"].includes(lastChar)) {
+    return; // Do nothing if the last character is already an operator
+  }
+
+  if (currentValue.length < 12) {
+    display.innerText += action;
+    operator = action;
+  }
+}
 
 window.addEventListener("load", () => {
   const display = document.getElementById("display");
@@ -87,37 +86,10 @@ buttonClear.addEventListener("click", () => {
   count = 0; // Reset the bracket count
 });
 
-buttonPlus.addEventListener("click", () => {
-  const display = document.getElementById("display");
-  const currentValue = parseFloat(display.innerText);
-  if (!isNaN(currentValue)) {
-    action("+");
-  }
-});
-
-buttonMinus.addEventListener("click", () => {
-  const display = document.getElementById("display");
-  const currentValue = parseFloat(display.innerText);
-  if (!isNaN(currentValue)) {
-    action("-");
-  }
-});
-
-buttonMultiply.addEventListener("click", () => {
-  const display = document.getElementById("display");
-  const currentValue = parseFloat(display.innerText);
-  if (!isNaN(currentValue)) {
-    action("*");
-  }
-});
-
-buttonDivide.addEventListener("click", () => {
-  const display = document.getElementById("display");
-  const currentValue = parseFloat(display.innerText);
-  if (!isNaN(currentValue)) {
-    action("/");
-  }
-});
+buttonPlus.addEventListener("click", () => action("+"));
+buttonMinus.addEventListener("click", () => action("-"));
+buttonMultiply.addEventListener("click", () => action("*"));
+buttonDivide.addEventListener("click", () => action("/"));
 
 buttonDecimal.addEventListener("click", () => {
   const display = document.getElementById("display");
@@ -147,6 +119,16 @@ buttonEqual.addEventListener("click", () => {
     operator = null;
     numbers = [];
   }
+});
+
+buttonPercent.addEventListener("click", () => {
+  const display = document.getElementById("display");
+  const currentValue = parseFloat(display.innerText);
+  if (!isNaN(currentValue)) {
+    const result = currentValue / 100;
+    display.innerText = result;
+    numbers.push(result);
+  };
 });
 
 buttonBracket.addEventListener("click", () => {
