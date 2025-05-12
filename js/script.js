@@ -1,13 +1,13 @@
-const buttonZero = document.getElementById("button-zero");
-const buttonOne = document.getElementById("button-one");
-const buttonTwo = document.getElementById("button-two");
-const buttonThree = document.getElementById("button-three");
-const buttonFour = document.getElementById("button-four");
-const buttonFive = document.getElementById("button-five");
-const buttonSix = document.getElementById("button-six");
-const buttonSeven = document.getElementById("button-seven");
-const buttonEight = document.getElementById("button-eight");
-const buttonNine = document.getElementById("button-nine");
+const buttonZero = document.getElementById("button-0");
+const buttonOne = document.getElementById("button-1");
+const buttonTwo = document.getElementById("button-2");
+const buttonThree = document.getElementById("button-3");
+const buttonFour = document.getElementById("button-4");
+const buttonFive = document.getElementById("button-5");
+const buttonSix = document.getElementById("button-6");
+const buttonSeven = document.getElementById("button-7");
+const buttonEight = document.getElementById("button-8");
+const buttonNine = document.getElementById("button-9");
 const buttonPlus = document.getElementById("addition");
 const buttonMinus = document.getElementById("substraction");
 const buttonMultiply = document.getElementById("multiplication");
@@ -173,5 +173,27 @@ buttonBracket.addEventListener("click", () => {
     display.innerText += currBrecket;
     numbers.push(")");
     count++;
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  const key = event.key;
+  if (key >= "0" && key <= "9") {
+    const button = document.getElementById(`button-${key}`);
+    button.click();
+  } else if (key === "+") {
+    buttonPlus.click();
+  } else if (key === "-") {
+    buttonMinus.click();
+  } else if (key === "*") {
+    buttonMultiply.click();
+  } else if (key === "/") {
+    buttonDivide.click();
+  } else if (key === "=" || key === "Enter") {
+    buttonEqual.click();
+  } else if (key === "Backspace") {
+    buttonBackspace.click();
+  } else if (key === "Escape") {
+    buttonClear.click();
   }
 });
