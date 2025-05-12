@@ -68,8 +68,8 @@ buttons.forEach((button) => {
     }
 
     // Limit the display length to 8 characters
-    if (display.innerText.length > 8) {
-      display.innerText = display.innerText.slice(0, 8);
+    if (display.innerText.length > 12) {
+      display.innerText = display.innerText.slice(0, 12);
     }
   });
 });
@@ -162,8 +162,8 @@ buttonBracket.addEventListener("click", () => {
     currBrecket = ")";
 
   }
-  if (display.innerText.length > 12) {
-    display.innerText = display.innerText.slice(0, 12);
+  if (display.innerText.length > 18) {
+    display.innerText = display.innerText.slice(0, 18);
   }
   if (currentValue === "0") {
     display.innerText = currBrecket;
