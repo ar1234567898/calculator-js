@@ -50,4 +50,10 @@ body {
 
   background-color: #5a81ce;
   border-radius: 100px;
+  box-shadow: #2f4b8d 0px 0px 20px inset;
+}
+
+.button:hover {
+  background-color: #4a6bb8;
+  box-shadow: #2f4b8d 0px 0px 30px inset;
 }
